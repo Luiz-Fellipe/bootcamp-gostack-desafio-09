@@ -1,3 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+import colors from '~/styles/colors';
+
+export const Wrapper = styled.div`
+  height: 100%;
+  background: ${colors.purple};
+`;
