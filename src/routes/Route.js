@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 import AuthLayout from '~/pages/_layouts/auth';
 import DefaultLayout from '~/pages/_layouts/default';
 
@@ -10,7 +10,7 @@ export default function RouteWrapper({
   isPrivate = false,
   ...rest
 }) {
-  const signed = false;
+  const signed = useSelector(state => state.auth.signed);
 
   // Se a rota é privada e o usuário não esta logado, ele volta pro login
   if (!signed && isPrivate) {

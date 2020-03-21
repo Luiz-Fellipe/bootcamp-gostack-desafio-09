@@ -1,15 +1,19 @@
 import React, { useRef } from 'react';
 import { Form } from '@unform/web';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import Input from '~/components/Input';
 // import { Container } from './styles';
-
+import { signInRequest } from '~/store/modules/auth/actions';
 import logo from '~/assets/images/logo.png';
 
 export default function SignIn() {
   const formRef = useRef(null);
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
 
   async function handleSubmit(data) {
+    const { email, password } = data;
     try {
       // Remove all previous errors
       formRef.current.setErrors({});
@@ -25,7 +29,7 @@ export default function SignIn() {
         abortEarly: false,
       });
       // Validation passed
-      console.tron.log(data);
+      dispatch(signInRequest(email, password));
     } catch (err) {
       const validationErrors = {};
       if (err instanceof Yup.ValidationError) {
@@ -58,7 +62,9 @@ export default function SignIn() {
           placeholder="*************"
         />
 
-        <button type="submit">Entrar no sistema</button>
+        <button type="submit">
+          {loading ? 'Carregando...' : 'Entrar no sistema'}
+        </button>
       </Form>
     </>
   );
