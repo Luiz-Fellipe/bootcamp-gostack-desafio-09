@@ -20,7 +20,7 @@ export function* signIn({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(signInSuccess(token, user));
-    history.push('/deliveries');
+    history.push('/encomendas');
   } catch (error) {
     console.tron.log(error);
     toast.error('Falha na autenticação. Verifique seus dados !');
