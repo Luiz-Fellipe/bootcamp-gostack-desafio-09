@@ -1,9 +1,16 @@
 export default {
   purple: '#7D40E7',
+  blue: '#4D85EE',
+  lightBlue: '#BAD2FF',
   greyBackground: '#F5F5F5',
   white: '#FFFFFF',
   label: '#444444',
   gray: '#666666',
   lightGray: '#DDDDDD',
   red: '#DE3B3B',
+  lightRed: '#FAB0B0',
+  lightGreen: '#DFF0DF',
+  green: '#2CA42B',
+  greenShit: '#C1BC35',
+  lightGreenShit: '#F0F0DF',
 };

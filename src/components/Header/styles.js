@@ -10,6 +10,9 @@ export const Container = styled.div`
 export const Content = styled.div`
   height: 64px;
   max-width: 1600px;
+  @media screen and (max-width: 1440px) {
+    max-width: 1200px;
+  }
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -25,7 +28,6 @@ export const Content = styled.div`
     }
 
     a {
-      font-size: 16px;
       margin-left: 20px;
       font-weight: bold;
       color: #999999;
