@@ -1,27 +1,90 @@
-import React from 'react';
-import {
-  MdAdd,
-  MdCreate,
-  MdDeleteForever,
-  MdVisibility,
-  MdSearch,
-} from 'react-icons/md';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { MdAdd, MdSearch } from 'react-icons/md';
 
-import AvatarDeliveryman from '~/components/AvatarDeliveryman';
-import Table from '~/components/Table';
-import Popover from '~/components/Popover';
-import colors from '~/styles/colors';
+import api from '~/services/api';
+
+import NotResultsFound from '~/components/NotResultsFound';
+import TableDeliveries from './TableDeliveries';
+import Pagination from '~/components/Pagination';
 
 import {
   Container,
   ButtonCadastrar,
   DivSearchAndButton,
-  PopoverContent,
-  StatusContainer,
   DivInput,
 } from './styles';
 
 export default function Deliveries() {
+  const [deliveries, setDeliveries] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [searchValue, setSearchValue] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function loadDeliveries() {
+      try {
+        setLoading(true);
+
+        const response = await api.get('deliveries', {
+          params: {
+            page,
+            product: searchValue,
+          },
+        });
+
+        if (response) {
+          const { deliveries: deliveriesData, totalPages } = response.data;
+
+          const data = deliveriesData.map(delivery => {
+            let status;
+
+            if (delivery.initiated && !delivery.finished) {
+              status = 'RETIRADA';
+            } else if (delivery.initiated && delivery.finished) {
+              status = 'ENTREGUE';
+            } else if (delivery.canceled) {
+              status = 'CANCELADA';
+            } else {
+              status = 'PENDENTE';
+            }
+            return {
+              ...delivery,
+              status,
+            };
+          });
+          setDeliveries(data);
+          setTotalPage(totalPages);
+          setLoading(false);
+        }
+      } catch (error) {
+        toast.error('Erro ao carregar informações das entregas.');
+      }
+    }
+
+    loadDeliveries();
+  }, [page, searchValue]);
+
+  function handlePrevPage() {
+    if (page === 1) return;
+    setPage(page - 1);
+  }
+
+  function handleNextPage() {
+    if (page === totalPage || totalPage === 0) return;
+    setPage(page + 1);
+  }
+
+  function handleInputChange(e) {
+    setSearchValue(e.target.value);
+
+    // volta para primeira página sempre que o valor do input search muda.
+    if (page !== 1) {
+      setPage(1);
+    }
+  }
+
   return (
     <Container>
       <h1>Gerenciando Encomendas</h1>
@@ -29,7 +92,12 @@ export default function Deliveries() {
       <DivSearchAndButton>
         <DivInput>
           <MdSearch size={20} color="#999999" />
-          <input type="text" placeholder="Busca por encomendas" />
+          <input
+            type="text"
+            placeholder="Busca por encomendas"
+            value={searchValue}
+            onChange={handleInputChange}
+          />
         </DivInput>
         <ButtonCadastrar type="button">
           <MdAdd size={25} />
@@ -37,173 +105,27 @@ export default function Deliveries() {
         </ButtonCadastrar>
       </DivSearchAndButton>
 
-      <Table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Destinatário</th>
-            <th>Entregador</th>
-            <th>Cidade</th>
-            <th>Estado</th>
-            <th>Status</th>
-            <th className="actions">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>#01</td>
-            <td>Ludwig van Beethoven</td>
-            <td id="tdEntregador">
-              <AvatarDeliveryman
-                name="John Doe"
-                src="https://api.adorabasdle.io/avatars/50/abott@adorable.png"
+      {/* Se estiver carregando ele exibe o loading */}
+      {!loading ? (
+        <>
+          {/* Se não estiver carregando eo deliveres continuar vazio, é pq ele não encontrou nenhuma encomenda */}
+          {!deliveries.length ? (
+            <NotResultsFound text="Nenhuma encomenda foi encontrada." />
+          ) : (
+            <>
+              <TableDeliveries deliveries={deliveries} />
+              <Pagination
+                page={page}
+                totalPage={totalPage}
+                prevPage={handlePrevPage}
+                nextPage={handleNextPage}
               />
-              <span>John Doe</span>
-            </td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>
-              <StatusContainer>
-                <span>PENDENTE</span>
-              </StatusContainer>
-            </td>
-            <td className="actions">
-              <Popover>
-                <PopoverContent>
-                  <button type="button">
-                    <MdVisibility size={16} color="#8E5BE8" />
-                    <span>Visualizar</span>
-                  </button>
-                  <hr />
-                  <button type="button">
-                    <MdCreate size={16} color={colors.blue} />
-                    <span>Editar</span>
-                  </button>
-                  <hr />
-                  <button type="button">
-                    <MdDeleteForever size={16} color={colors.red} />
-                    <span>Excluir</span>
-                  </button>
-                </PopoverContent>
-              </Popover>
-            </td>
-          </tr>
-          <tr>
-            <td>#02</td>
-            <td>Ludwig van Beethoven</td>
-            <td id="tdEntregador">
-              <AvatarDeliveryman
-                name="Gaspar Antunes"
-                src="https://api.adorabasdle.io/avatars/50/abott@adorable.png"
-              />
-              <span>Gaspar Antunes</span>
-            </td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>
-              <StatusContainer initiated finished={false} canceled={false}>
-                <span>RETIRADA</span>
-              </StatusContainer>
-            </td>
-            <td className="actions">
-              <Popover>
-                <PopoverContent>
-                  <button type="button">
-                    <MdVisibility size={16} color="#8E5BE8" />
-                    <span>Visualizar</span>
-                  </button>
-                  <hr />
-                  <button type="button">
-                    <MdCreate size={16} color={colors.blue} />
-                    <span>Editar</span>
-                  </button>
-                  <hr />
-                  <button type="button">
-                    <MdDeleteForever size={16} color={colors.red} />
-                    <span>Excluir</span>
-                  </button>
-                </PopoverContent>
-              </Popover>
-            </td>
-          </tr>
-          <tr>
-            <td>#03</td>
-            <td>Johann Sebastian Bach</td>
-            <td id="tdEntregador">
-              <AvatarDeliveryman
-                name="Dai Jiang"
-                src="https://api.adorabasdle.io/avatars/50/abott@adorable.png"
-              />
-              <span>Dai Jiang</span>
-            </td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>
-              <StatusContainer initiated finished canceled={false}>
-                <span>ENTREGUE</span>
-              </StatusContainer>
-            </td>
-            <td className="actions">
-              <Popover>
-                <PopoverContent>
-                  <button type="button">
-                    <MdVisibility size={16} color="#8E5BE8" />
-                    <span>Visualizar</span>
-                  </button>
-                  <hr />
-                  <button type="button">
-                    <MdCreate size={16} color={colors.blue} />
-                    <span>Editar</span>
-                  </button>
-                  <hr />
-                  <button type="button">
-                    <MdDeleteForever size={16} color={colors.red} />
-                    <span>Excluir</span>
-                  </button>
-                </PopoverContent>
-              </Popover>
-            </td>
-          </tr>
-          <tr>
-            <td>#04</td>
-            <td>Frédéric Chopin</td>
-            <td id="tdEntregador">
-              <AvatarDeliveryman
-                name="Tom Hanson"
-                src="https://api.adorabasdle.io/avatars/50/abott@adorable.png"
-              />
-              <span>Tom Hanson</span>
-            </td>
-            <td>Rio do Sul</td>
-            <td>Santa Catarina</td>
-            <td>
-              <StatusContainer initiated={false} finished={false} canceled>
-                <span>CANCELADA</span>
-              </StatusContainer>
-            </td>
-            <td className="actions">
-              <Popover>
-                <PopoverContent>
-                  <button type="button">
-                    <MdVisibility size={16} color="#8E5BE8" />
-                    <span>Visualizar</span>
-                  </button>
-                  <hr />
-                  <button type="button">
-                    <MdCreate size={16} color={colors.blue} />
-                    <span>Editar</span>
-                  </button>
-                  <hr />
-                  <button type="button">
-                    <MdDeleteForever size={16} color={colors.red} />
-                    <span>Excluir</span>
-                  </button>
-                </PopoverContent>
-              </Popover>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
+            </>
+          )}
+        </>
+      ) : (
+        <h3>Carregando...</h3>
+      )}
     </Container>
   );
 }

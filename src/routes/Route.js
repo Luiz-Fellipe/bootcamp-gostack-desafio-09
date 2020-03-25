@@ -19,7 +19,7 @@ export default function RouteWrapper({
 
   // Se a rota não for privada e ele estiver logado , ele volta pro deliveries
   if (signed && !isPrivate) {
-    return <Redirect to="/deliveries" />;
+    return <Redirect to="/encomendas" />;
   }
 
   const Layout = signed ? DefaultLayout : AuthLayout;
