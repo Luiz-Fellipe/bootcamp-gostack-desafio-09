@@ -8,5 +8,5 @@ export default function Table({ children }) {
 }
 
 Table.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };

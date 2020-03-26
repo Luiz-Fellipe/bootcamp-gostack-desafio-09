@@ -3,6 +3,7 @@ import colors from '~/styles/colors';
 
 export const Container = styled.div`
   position: relative;
+  text-align: center;
 `;
 
 export const Badge = styled.button`

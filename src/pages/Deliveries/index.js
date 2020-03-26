@@ -23,48 +23,49 @@ export default function Deliveries() {
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    async function loadDeliveries() {
-      try {
-        setLoading(true);
+  async function loadDeliveries() {
+    try {
+      setLoading(true);
 
-        const response = await api.get('deliveries', {
-          params: {
-            page,
-            product: searchValue,
-          },
+      const response = await api.get('deliveries', {
+        params: {
+          page,
+          product: searchValue,
+        },
+      });
+
+      if (response) {
+        const { deliveries: deliveriesData, totalPages } = response.data;
+
+        const data = deliveriesData.map(delivery => {
+          let status;
+
+          if (delivery.initiated && !delivery.finished) {
+            status = 'RETIRADA';
+          } else if (delivery.initiated && delivery.finished) {
+            status = 'ENTREGUE';
+          } else if (delivery.canceled) {
+            status = 'CANCELADA';
+          } else {
+            status = 'PENDENTE';
+          }
+          return {
+            ...delivery,
+            status,
+          };
         });
-
-        if (response) {
-          const { deliveries: deliveriesData, totalPages } = response.data;
-
-          const data = deliveriesData.map(delivery => {
-            let status;
-
-            if (delivery.initiated && !delivery.finished) {
-              status = 'RETIRADA';
-            } else if (delivery.initiated && delivery.finished) {
-              status = 'ENTREGUE';
-            } else if (delivery.canceled) {
-              status = 'CANCELADA';
-            } else {
-              status = 'PENDENTE';
-            }
-            return {
-              ...delivery,
-              status,
-            };
-          });
-          setDeliveries(data);
-          setTotalPage(totalPages);
-          setLoading(false);
-        }
-      } catch (error) {
-        toast.error('Erro ao carregar informações das entregas.');
+        setDeliveries(data);
+        setTotalPage(totalPages);
+        setLoading(false);
       }
+    } catch (error) {
+      toast.error('Erro ao carregar informações das entregas.');
     }
+  }
 
+  useEffect(() => {
     loadDeliveries();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchValue]);
 
   function handlePrevPage() {
@@ -111,17 +112,19 @@ export default function Deliveries() {
       {/* Se estiver carregando ele exibe o loading */}
       {!loading ? (
         <>
-          {/* Se não estiver carregando eo deliveres continuar vazio, é pq ele não encontrou nenhuma encomenda */}
+          {/* Se não estiver carregando e o deliveres continuar vazio, é pq ele não encontrou nenhuma encomenda */}
           {!deliveries.length ? (
             <NotResultsFound text="Nenhuma encomenda foi encontrada." />
           ) : (
-            <TableDeliveries deliveries={deliveries} />
+            <TableDeliveries
+              deliveries={deliveries}
+              callback={loadDeliveries}
+              prevPage={handlePrevPage}
+            />
           )}
         </>
       ) : (
-        <>
-          <TableLoading />
-        </>
+        <TableLoading />
       )}
       <Pagination
         page={page}
