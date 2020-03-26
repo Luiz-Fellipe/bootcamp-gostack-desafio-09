@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdCreate, MdDeleteForever, MdVisibility } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
@@ -9,6 +9,7 @@ import api from '~/services/api';
 import AvatarDeliveryman from '~/components/AvatarDeliveryman';
 import Table from '~/components/Table';
 import Popover from '~/components/Popover';
+import ModalDelivery from '~/pages/Deliveries/ModalDelivery';
 
 import {
   StatusContainer,
@@ -18,6 +19,25 @@ import {
 } from './styles';
 
 export default function TableDeliveries({ deliveries, callback, prevPage }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [delivery, setDelivery] = useState({});
+
+  function handleModal(deliveryContent = {}) {
+    // se existir um objeto com as informações da encomenda,
+    // ele é setado em um estado para ser carregado no modal
+    if (deliveryContent && !modalIsOpen) {
+      setDelivery(deliveryContent);
+    }
+
+    // se ele entrou nessa função com o modal aberto é pq ele vai fechar o modal,
+    // então antes de fechar o estado é setado como vazio
+    if (modalIsOpen) {
+      setDelivery({});
+    }
+
+    setModalIsOpen(!modalIsOpen);
+  }
+
   async function handleDeliveryDelete(id) {
     try {
       const confirmed = window.confirm(
@@ -57,32 +77,32 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
         </TableHead>
 
         <TableBody>
-          {deliveries.map(delivery => (
-            <tr key={delivery.id}>
-              <td>#{delivery.id}</td>
-              <td>{delivery.recipient.name}</td>
+          {deliveries.map(del => (
+            <tr key={del.id}>
+              <td>#{del.id}</td>
+              <td>{del.recipient.name}</td>
               <td id="tdEntregador">
                 <AvatarDeliveryman
-                  name={delivery.deliveryman.name}
-                  src={delivery.deliveryman.avatar_url || ''}
+                  name={del.deliveryman.name}
+                  src={del.deliveryman.avatar_url || ''}
                 />
-                <span>{delivery.deliveryman.name}</span>
+                <span>{del.deliveryman.name}</span>
               </td>
-              <td>{delivery.recipient.city}</td>
-              <td>{delivery.recipient.uf}</td>
+              <td>{del.recipient.city}</td>
+              <td>{del.recipient.uf}</td>
               <td>
                 <StatusContainer
-                  initiated={delivery.initiated}
-                  finished={delivery.finished}
-                  canceled={delivery.canceled}
+                  initiated={del.initiated}
+                  finished={del.finished}
+                  canceled={del.canceled}
                 >
-                  <span>{delivery.status}</span>
+                  <span>{del.status}</span>
                 </StatusContainer>
               </td>
               <td className="actions">
                 <Popover>
                   <PopoverContent>
-                    <button type="button">
+                    <button type="button" onClick={() => handleModal(del)}>
                       <MdVisibility size={16} color="#8E5BE8" />
                       <span>Visualizar</span>
                     </button>
@@ -106,6 +126,14 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
           ))}
         </TableBody>
       </Table>
+
+      {modalIsOpen && (
+        <ModalDelivery
+          modalIsOpen={modalIsOpen}
+          delivery={delivery}
+          handleModal={() => handleModal()}
+        />
+      )}
     </>
   );
 }
