@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdCreate, MdDeleteForever, MdVisibility } from 'react-icons/md';
 
+import PropTypes from 'prop-types';
 import colors from '~/styles/colors';
 
 import AvatarDeliveryman from '~/components/AvatarDeliveryman';
@@ -79,3 +80,21 @@ export default function TableDeliveries({ deliveries }) {
     </>
   );
 }
+
+TableDeliveries.propTypes = {
+  deliveries: PropTypes.shape({
+    id: PropTypes.number,
+    initiated: PropTypes.bool,
+    finished: PropTypes.bool,
+    canceled: PropTypes.bool,
+    recipient: PropTypes.shape({
+      name: PropTypes.string,
+      city: PropTypes.string,
+      uf: PropTypes.string,
+    }),
+    deliveryman: PropTypes.shape({
+      name: PropTypes.string,
+      avatar_url: PropTypes.string,
+    }),
+  }).isRequired,
+};

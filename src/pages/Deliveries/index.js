@@ -7,6 +7,7 @@ import api from '~/services/api';
 import NotResultsFound from '~/components/NotResultsFound';
 import TableDeliveries from './TableDeliveries';
 import Pagination from '~/components/Pagination';
+import TableLoading from '~/components/TableLoading';
 
 import {
   Container,
@@ -77,6 +78,8 @@ export default function Deliveries() {
   }
 
   function handleInputChange(e) {
+    if (loading) return;
+
     setSearchValue(e.target.value);
 
     // volta para primeira página sempre que o valor do input search muda.
@@ -112,20 +115,20 @@ export default function Deliveries() {
           {!deliveries.length ? (
             <NotResultsFound text="Nenhuma encomenda foi encontrada." />
           ) : (
-            <>
-              <TableDeliveries deliveries={deliveries} />
-              <Pagination
-                page={page}
-                totalPage={totalPage}
-                prevPage={handlePrevPage}
-                nextPage={handleNextPage}
-              />
-            </>
+            <TableDeliveries deliveries={deliveries} />
           )}
         </>
       ) : (
-        <h3>Carregando...</h3>
+        <>
+          <TableLoading />
+        </>
       )}
+      <Pagination
+        page={page}
+        totalPage={totalPage}
+        prevPage={handlePrevPage}
+        nextPage={handleNextPage}
+      />
     </Container>
   );
 }
