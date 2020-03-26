@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { MdCreate, MdDeleteForever, MdVisibility } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
@@ -21,6 +21,7 @@ import {
 export default function TableDeliveries({ deliveries, callback, prevPage }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [delivery, setDelivery] = useState({});
+  const outside = useRef(null);
 
   function handleModal(deliveryContent = {}) {
     // se existir um objeto com as informações da encomenda,
@@ -100,7 +101,7 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
                 </StatusContainer>
               </td>
               <td className="actions">
-                <Popover>
+                <Popover outside={outside}>
                   <PopoverContent>
                     <button type="button" onClick={() => handleModal(del)}>
                       <MdVisibility size={16} color="#8E5BE8" />
