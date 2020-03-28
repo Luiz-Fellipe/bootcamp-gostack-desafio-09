@@ -1,11 +1,11 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import colors from '~/styles/colors';
 
 export const Container = styled.div`
   h1 {
     font-size: 24px;
     color: ${colors.label};
-    margin-bottom: 20px;
   }
 `;
 
@@ -29,9 +29,10 @@ export const DivSearchAndButton = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px;
 `;
 
-export const ButtonCadastrar = styled.button`
+export const ButtonCadastrar = styled(Link)`
   display: flex;
   font-weight: bold;
   align-items: center;

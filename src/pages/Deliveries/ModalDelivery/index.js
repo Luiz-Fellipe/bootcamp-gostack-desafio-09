@@ -35,7 +35,7 @@ export default function ModalDelivery({ modalIsOpen, handleModal, delivery }) {
     >
       <ModalContent>
         {console.tron.log(delivery)}
-        <strong>Informações da encomenda</strong>
+        <strong>Informações da encomenda </strong>
         <span>
           {delivery.recipient.street} , {delivery.recipient.number}
         </span>

@@ -37,7 +37,7 @@ ul {
   list-style: none; 
 }
 
-button {
+button: {
   cursor: pointer;  
 }
 

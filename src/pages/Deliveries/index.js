@@ -18,6 +18,7 @@ import {
 
 export default function Deliveries() {
   const [deliveries, setDeliveries] = useState([]);
+
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [searchValue, setSearchValue] = useState('');
@@ -92,7 +93,6 @@ export default function Deliveries() {
   return (
     <Container>
       <h1>Gerenciando Encomendas</h1>
-
       <DivSearchAndButton>
         <DivInput>
           <MdSearch size={20} color="#999999" />
@@ -103,12 +103,11 @@ export default function Deliveries() {
             onChange={handleInputChange}
           />
         </DivInput>
-        <ButtonCadastrar type="button">
+        <ButtonCadastrar to="encomendas/cadastrar">
           <MdAdd size={25} />
           <span>CADASTRAR</span>
         </ButtonCadastrar>
       </DivSearchAndButton>
-
       {/* Se estiver carregando ele exibe o loading */}
       {!loading ? (
         <>
