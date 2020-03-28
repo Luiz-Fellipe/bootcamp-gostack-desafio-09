@@ -20,45 +20,46 @@ import {
 
 export default function TableDeliveries({ deliveries, callback, prevPage }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [delivery, setDelivery] = useState({});
+  const [deliveryModal, setDeliveryModal] = useState({});
   const outside = useRef(null);
 
   function handleModal(deliveryContent = {}) {
     // se existir um objeto com as informações da encomenda,
     // ele é setado em um estado para ser carregado no modal
     if (deliveryContent && !modalIsOpen) {
-      setDelivery(deliveryContent);
+      setDeliveryModal(deliveryContent);
     }
 
     // se ele entrou nessa função com o modal aberto é pq ele vai fechar o modal,
     // então antes de fechar o estado é setado como vazio
     if (modalIsOpen) {
-      setDelivery({});
+      setDeliveryModal({});
     }
 
     setModalIsOpen(!modalIsOpen);
   }
 
   async function handleDeliveryDelete(id) {
-    try {
-      const confirmed = window.confirm(
-        'Tem certeza que deseja excluir essa encomenda ?'
-      );
+    const confirmed = window.confirm(
+      'Tem certeza que deseja excluir essa encomenda ?'
+    );
 
-      if (confirmed) {
-        await api.delete(`/deliveries/${id}`);
+    if (confirmed) {
+      await api
+        .delete(`/deliveries/${id}`)
+        .then(() => {
+          callback();
 
-        callback();
+          // se o usuário excluir o ultimo item de uma pagina, ele volta pra anterior
+          if (deliveries.length === 1) {
+            prevPage();
+          }
 
-        // se o usuário excluir o ultimo item de uma pagina, ele volta pra anterior
-        if (deliveries.length === 1) {
-          prevPage();
-        }
-
-        toast.success('Encomenda deletada com sucesso !');
-      }
-    } catch (error) {
-      toast.error('Erro ao excluir a entrega.');
+          toast.success('Encomenda deletada com sucesso !');
+        })
+        .catch(err => {
+          toast.error('Erro ao excluir a entrega.');
+        });
     }
   }
 
@@ -78,32 +79,32 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
         </TableHead>
 
         <TableBody>
-          {deliveries.map(del => (
-            <tr key={del.id}>
-              <td>#{del.id}</td>
-              <td>{del.recipient.name}</td>
+          {deliveries.map(delivery => (
+            <tr key={delivery.id}>
+              <td>#{delivery.id}</td>
+              <td>{delivery.recipient.name}</td>
               <td id="tdEntregador">
                 <AvatarDeliveryman
-                  name={del.deliveryman.name}
-                  src={del.deliveryman.avatar_url || ''}
+                  name={delivery.deliveryman.name}
+                  src={delivery.deliveryman.avatar_url || ''}
                 />
-                <span>{del.deliveryman.name}</span>
+                <span>{delivery.deliveryman.name}</span>
               </td>
-              <td>{del.recipient.city}</td>
-              <td>{del.recipient.uf}</td>
+              <td>{delivery.recipient.city}</td>
+              <td>{delivery.recipient.uf}</td>
               <td>
                 <StatusContainer
-                  initiated={del.initiated}
-                  finished={del.finished}
-                  canceled={del.canceled}
+                  initiated={delivery.initiated}
+                  finished={delivery.finished}
+                  canceled={delivery.canceled}
                 >
-                  <span>{del.status}</span>
+                  <span>{delivery.status}</span>
                 </StatusContainer>
               </td>
               <td className="actions">
                 <Popover outside={outside}>
                   <PopoverContent>
-                    <button type="button" onClick={() => handleModal(del)}>
+                    <button type="button" onClick={() => handleModal(delivery)}>
                       <MdVisibility size={16} color="#8E5BE8" />
                       <span>Visualizar</span>
                     </button>
@@ -131,7 +132,7 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
       {modalIsOpen && (
         <ModalDelivery
           modalIsOpen={modalIsOpen}
-          delivery={delivery}
+          delivery={deliveryModal}
           handleModal={() => handleModal()}
         />
       )}

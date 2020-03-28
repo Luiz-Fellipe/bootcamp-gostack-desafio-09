@@ -18,50 +18,50 @@ import {
 
 export default function Deliveries() {
   const [deliveries, setDeliveries] = useState([]);
-
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function loadDeliveries() {
-    try {
-      setLoading(true);
+    setLoading(true);
 
-      const response = await api.get('deliveries', {
+    await api
+      .get('deliveries', {
         params: {
           page,
           product: searchValue,
         },
+      })
+      .then(response => {
+        if (response) {
+          const { deliveries: deliveriesData, totalPages } = response.data;
+
+          const data = deliveriesData.map(delivery => {
+            let status;
+
+            if (delivery.initiated && !delivery.finished) {
+              status = 'RETIRADA';
+            } else if (delivery.initiated && delivery.finished) {
+              status = 'ENTREGUE';
+            } else if (delivery.canceled) {
+              status = 'CANCELADA';
+            } else {
+              status = 'PENDENTE';
+            }
+            return {
+              ...delivery,
+              status,
+            };
+          });
+          setDeliveries(data);
+          setTotalPage(totalPages);
+          setLoading(false);
+        }
+      })
+      .catch(err => {
+        toast.error('Erro ao carregar informações das entregas.');
       });
-
-      if (response) {
-        const { deliveries: deliveriesData, totalPages } = response.data;
-
-        const data = deliveriesData.map(delivery => {
-          let status;
-
-          if (delivery.initiated && !delivery.finished) {
-            status = 'RETIRADA';
-          } else if (delivery.initiated && delivery.finished) {
-            status = 'ENTREGUE';
-          } else if (delivery.canceled) {
-            status = 'CANCELADA';
-          } else {
-            status = 'PENDENTE';
-          }
-          return {
-            ...delivery,
-            status,
-          };
-        });
-        setDeliveries(data);
-        setTotalPage(totalPages);
-        setLoading(false);
-      }
-    } catch (error) {
-      toast.error('Erro ao carregar informações das entregas.');
-    }
   }
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function Deliveries() {
   }
 
   function handleNextPage() {
-    if (page === totalPage || totalPage === 0) return;
+    if (page === totalPage || totalPage === 1) return;
     setPage(page + 1);
   }
 
