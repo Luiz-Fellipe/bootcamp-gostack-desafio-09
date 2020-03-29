@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { MdAdd, MdSearch } from 'react-icons/md';
-
+import { MdAdd } from 'react-icons/md';
+import colors from '~/styles/colors';
 import api from '~/services/api';
 
 import NotResultsFound from '~/components/NotResultsFound';
 import TableDeliveries from './TableDeliveries';
 import Pagination from '~/components/Pagination';
 import TableLoading from '~/components/TableLoading';
+import HeaderPage from '~/components/HeaderPage';
+import InputSearch from '~/components/InputSearch';
+import Button from '~/components/Button';
 
-import {
-  Container,
-  ButtonCadastrar,
-  DivSearchAndButton,
-  DivInput,
-} from './styles';
+import { Container } from './styles';
 
 export default function Deliveries() {
   const [deliveries, setDeliveries] = useState([]);
@@ -59,7 +57,7 @@ export default function Deliveries() {
           setLoading(false);
         }
       })
-      .catch(err => {
+      .catch(() => {
         toast.error('Erro ao carregar informações das entregas.');
       });
   }
@@ -92,22 +90,21 @@ export default function Deliveries() {
 
   return (
     <Container>
-      <h1>Gerenciando Encomendas</h1>
-      <DivSearchAndButton>
-        <DivInput>
-          <MdSearch size={20} color="#999999" />
-          <input
-            type="text"
-            placeholder="Busca por encomendas"
-            value={searchValue}
-            onChange={handleInputChange}
-          />
-        </DivInput>
-        <ButtonCadastrar to="encomendas/cadastrar">
-          <MdAdd size={25} />
-          <span>CADASTRAR</span>
-        </ButtonCadastrar>
-      </DivSearchAndButton>
+      <HeaderPage textTitle="Gerenciando Encomendas">
+        <InputSearch
+          type="text"
+          placeholder="Busca por encomendas"
+          value={searchValue}
+          onChange={handleInputChange}
+        />
+        <Button
+          Icon={MdAdd}
+          backgroundButton={colors.purple}
+          textButton="CADASTRAR"
+          to="encomendas/cadastrar"
+        />
+      </HeaderPage>
+
       {/* Se estiver carregando ele exibe o loading */}
       {!loading ? (
         <>

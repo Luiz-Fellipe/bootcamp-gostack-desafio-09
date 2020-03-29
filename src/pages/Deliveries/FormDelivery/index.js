@@ -48,7 +48,7 @@ export default function FormDelivery({ match }) {
           }
         }
       })
-      .catch(err => {
+      .catch(() => {
         toast.error('Erro ao carregar dados dos entregadores.');
       });
   }
@@ -76,7 +76,7 @@ export default function FormDelivery({ match }) {
           }
         }
       })
-      .catch(err => {
+      .catch(() => {
         toast.error('Erro ao carregar dados dos destinatários.');
       });
   }
@@ -129,7 +129,7 @@ export default function FormDelivery({ match }) {
         .then(() => {
           toast.success('Encomenda cadastrada com sucesso');
         })
-        .catch(err => {
+        .catch(() => {
           toast.error('Erro ao cadastrar encomenda');
         });
     } else {
@@ -142,8 +142,7 @@ export default function FormDelivery({ match }) {
         .then(() => {
           toast.success('Encomenda editada com sucesso');
         })
-        .catch(err => {
-          console.tron.log(err);
+        .catch(() => {
           toast.error('Erro ao editar encomenda');
         });
     }

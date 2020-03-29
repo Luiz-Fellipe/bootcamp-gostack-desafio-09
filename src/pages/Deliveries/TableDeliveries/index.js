@@ -58,7 +58,7 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
 
           toast.error('Encomenda deletada com sucesso !');
         })
-        .catch(err => {
+        .catch(() => {
           toast.warn('Erro ao excluir a entrega.');
         });
     }
