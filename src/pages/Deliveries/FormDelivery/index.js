@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { Form } from '@unform/web';
 import { toast } from 'react-toastify';
 import { MdDone, MdNavigateBefore } from 'react-icons/md';
+import PropTypes from 'prop-types';
 import api from '~/services/api';
 import Input from '~/components/Input';
 import InputSelect from '~/components/InputSelect';
@@ -17,11 +18,12 @@ import {
   InputBlock,
 } from './styles';
 
-export default function FormAddDelivery() {
+export default function FormDelivery({ match }) {
   const formRef = useRef(null);
-
+  const { id } = match.params;
   const [deliverymen, setDeliverymen] = useState([]);
   const [recipients, setRecipients] = useState([]);
+  const [deliveryEditData, setDeliveryEditData] = useState([]);
 
   async function loadDeliverymen(inputValue, callback) {
     await api
@@ -79,26 +81,72 @@ export default function FormAddDelivery() {
       });
   }
 
-  useEffect(() => {
-    loadDeliverymen();
-    loadRecipients();
-  }, []);
-
-  async function handleSubmit(dataForm) {
-    const { recipient_id, deliveryman_id, product } = dataForm;
+  async function loadDeliveryEditData(idDelivery) {
     await api
-      .post('/deliveries', {
-        recipient_id,
-        deliveryman_id,
-        product,
-      })
-      .then(() => {
-        toast.success('Encomenda cadastrada com sucesso');
+      .get(`/deliveries/${idDelivery}`)
+      .then(async response => {
+        const data = {
+          product: response.data.product,
+        };
+
+        setDeliveryEditData(data);
+
+        // seta nos campos do react-select o nome do entregador e do destinatário
+        await formRef.current.setFieldValue('deliveryman_id', {
+          value: response.data.deliveryman.id,
+          label: response.data.deliveryman.name,
+        });
+
+        await formRef.current.setFieldValue('recipient_id', {
+          value: response.data.recipient.id,
+          label: response.data.recipient.name,
+        });
       })
       .catch(err => {
         console.tron.log(err);
-        toast.error('Erro ao cadastrar encomenda');
+        toast.error('Erro ao carregar dados da encomenda');
       });
+  }
+
+  useEffect(() => {
+    if (id) {
+      loadDeliveryEditData(id);
+    }
+    loadDeliverymen();
+    loadRecipients();
+  }, [id]);
+
+  async function handleSubmit(dataForm) {
+    const { recipient_id, deliveryman_id, product } = dataForm;
+
+    if (!id) {
+      await api
+        .post('/deliveries', {
+          recipient_id,
+          deliveryman_id,
+          product,
+        })
+        .then(() => {
+          toast.success('Encomenda cadastrada com sucesso');
+        })
+        .catch(err => {
+          toast.error('Erro ao cadastrar encomenda');
+        });
+    } else {
+      await api
+        .put(`/deliveries/${id}`, {
+          recipient_id,
+          deliveryman_id,
+          product,
+        })
+        .then(() => {
+          toast.success('Encomenda editada com sucesso');
+        })
+        .catch(err => {
+          console.tron.log(err);
+          toast.error('Erro ao editar encomenda');
+        });
+    }
   }
 
   async function handleValidation(dataForm) {
@@ -130,9 +178,13 @@ export default function FormAddDelivery() {
 
   return (
     <Container>
-      <Form ref={formRef} onSubmit={handleValidation}>
+      <Form
+        ref={formRef}
+        onSubmit={handleValidation}
+        initialData={deliveryEditData && deliveryEditData}
+      >
         <FormHeader>
-          <h1>Cadastro de encomendas</h1>
+          <h1>{id ? 'Edição de encomendas' : 'Cadastro de encomendas'}</h1>
           <div>
             <ButtonBack to="/encomendas">
               <MdNavigateBefore size={25} />
@@ -181,3 +233,11 @@ export default function FormAddDelivery() {
     </Container>
   );
 }
+
+FormDelivery.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};

@@ -7,7 +7,7 @@ import Deliveries from '~/pages/Deliveries';
 import Deliverymen from '~/pages/Deliverymen';
 import Recipient from '~/pages/Recipient';
 import DeliveryProblem from '~/pages/DeliveryProblem';
-import FormAddDelivery from '~/pages/Deliveries/FormAddDelivery';
+import FormDelivery from '~/pages/Deliveries/FormDelivery';
 
 import SignIn from '~/pages/SignIn';
 
@@ -19,7 +19,13 @@ export default function Routes() {
       <Route
         path="/encomendas/cadastrar"
         exact
-        component={FormAddDelivery}
+        component={FormDelivery}
+        isPrivate
+      />
+      <Route
+        path="/encomendas/editar/:id"
+        exact
+        component={FormDelivery}
         isPrivate
       />
       <Route path="/entregadores" exact component={Deliverymen} isPrivate />

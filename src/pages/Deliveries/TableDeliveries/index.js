@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import colors from '~/styles/colors';
 import api from '~/services/api';
+import history from '~/services/history';
 
 import AvatarDeliveryman from '~/components/AvatarDeliveryman';
 import Table from '~/components/Table';
@@ -55,12 +56,16 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
             prevPage();
           }
 
-          toast.success('Encomenda deletada com sucesso !');
+          toast.error('Encomenda deletada com sucesso !');
         })
         .catch(err => {
-          toast.error('Erro ao excluir a entrega.');
+          toast.warn('Erro ao excluir a entrega.');
         });
     }
+  }
+
+  function handleNavigate(deliveryId) {
+    history.push(`encomendas/editar/${deliveryId}`);
   }
 
   return (
@@ -109,7 +114,10 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
                       <span>Visualizar</span>
                     </button>
                     <hr />
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() => handleNavigate(delivery.id)}
+                    >
                       <MdCreate size={16} color={colors.blue} />
                       <span>Editar</span>
                     </button>

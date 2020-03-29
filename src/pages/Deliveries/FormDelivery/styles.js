@@ -58,13 +58,13 @@ export const InputGroup = styled.div`
   display: grid;
   gap: 25px;
   grid-template-columns: 1fr 1fr;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 `;
 
 export const InputBlock = styled.div`
   label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-weight: bold;
     color: ${colors.label};
   }
@@ -74,9 +74,6 @@ export const InputBlock = styled.div`
     margin-top: 10px;
     font-weight: bold;
     color: ${colors.red};
-  }
-  input {
-    color: ${colors.lightGray};
   }
 
   input#product {
