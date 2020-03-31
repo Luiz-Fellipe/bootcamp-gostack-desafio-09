@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import colors from '~/styles/colors';
 
-export const ButtonLink = styled(Link)`
+export const Button = styled.button`
   display: flex;
-  font-weight: bold;
   align-items: center;
+  font-weight: bold;
   border: 0;
   border-radius: 4px;
-  padding: 6px 20px;
-  background: ${props => props.background || colors.purple};
+  padding: 6px 15px;
+  background: ${props => (props.background ? props.background : colors.purple)};
   color: ${colors.white};
 
   span {
     margin-left: 5px;
+    text-align: center;
   }
 `;

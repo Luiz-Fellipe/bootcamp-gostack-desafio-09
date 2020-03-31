@@ -8,9 +8,9 @@ import NotResultsFound from '~/components/NotResultsFound';
 import TableDeliveries from './TableDeliveries';
 import Pagination from '~/components/Pagination';
 import TableLoading from '~/components/TableLoading';
-import HeaderPage from '~/components/HeaderPage';
+import PageHeader from '~/components/PageHeader';
 import InputSearch from '~/components/InputSearch';
-import Button from '~/components/Button';
+import { ButtonLink } from '~/components/Buttons';
 
 import { Container } from './styles';
 
@@ -90,20 +90,20 @@ export default function Deliveries() {
 
   return (
     <Container>
-      <HeaderPage textTitle="Gerenciando Encomendas">
+      <PageHeader textTitle="Gerenciando Encomendas">
         <InputSearch
           type="text"
           placeholder="Busca por encomendas"
           value={searchValue}
           onChange={handleInputChange}
         />
-        <Button
+        <ButtonLink
           Icon={MdAdd}
           backgroundButton={colors.purple}
           textButton="CADASTRAR"
           to="encomendas/cadastrar"
         />
-      </HeaderPage>
+      </PageHeader>
 
       {/* Se estiver carregando ele exibe o loading */}
       {!loading ? (

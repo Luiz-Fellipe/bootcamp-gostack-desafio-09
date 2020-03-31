@@ -24,8 +24,8 @@ const customStyles = {
 
 export default function ModalDelivery({ modalIsOpen, handleModal, delivery }) {
   const dataFormatted = date => format(date, 'P', { locale: pt });
-
   ReactModal.setAppElement('#root');
+
   return (
     <ReactModal
       isOpen={modalIsOpen}
@@ -34,7 +34,6 @@ export default function ModalDelivery({ modalIsOpen, handleModal, delivery }) {
       contentLabel="Example Modal"
     >
       <ModalContent>
-        {console.tron.log(delivery)}
         <strong>Informações da encomenda </strong>
         <span>
           {delivery.recipient.street} , {delivery.recipient.number}

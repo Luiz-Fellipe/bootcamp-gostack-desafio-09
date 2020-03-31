@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Content } from './styles';
 
-export default function HeaderPage({ textTitle, children }) {
+export default function PageHeader({ textTitle, children }) {
   return (
     <Container>
       <h1>{textTitle}</h1>
@@ -11,7 +11,7 @@ export default function HeaderPage({ textTitle, children }) {
   );
 }
 
-HeaderPage.propTypes = {
+PageHeader.propTypes = {
   textTitle: PropTypes.string.isRequired,
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };

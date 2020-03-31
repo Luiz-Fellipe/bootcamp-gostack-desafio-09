@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import colors from '~/styles/colors';
 
-export const PopoverContent = styled.div`
+export const PopoverItem = styled.div`
   button {
     background: none;
     border: 0;

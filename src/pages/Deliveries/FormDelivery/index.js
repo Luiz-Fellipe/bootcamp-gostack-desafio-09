@@ -2,21 +2,14 @@ import React, { useRef, useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { Form } from '@unform/web';
 import { toast } from 'react-toastify';
-import { MdDone, MdNavigateBefore } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import api from '~/services/api';
+
 import Input from '~/components/Input';
 import InputSelect from '~/components/InputSelect';
+import FormHeader from '~/components/FormHeader';
 
-import {
-  Container,
-  FormHeader,
-  FormBody,
-  ButtonBack,
-  ButtonSave,
-  InputGroup,
-  InputBlock,
-} from './styles';
+import { Container, FormBody, InputGroup, InputBlock } from './styles';
 
 export default function FormDelivery({ match }) {
   const formRef = useRef(null);
@@ -182,19 +175,9 @@ export default function FormDelivery({ match }) {
         onSubmit={handleValidation}
         initialData={deliveryEditData && deliveryEditData}
       >
-        <FormHeader>
-          <h1>{id ? 'Edição de encomendas' : 'Cadastro de encomendas'}</h1>
-          <div>
-            <ButtonBack to="/encomendas">
-              <MdNavigateBefore size={25} />
-              <span>VOLTAR</span>
-            </ButtonBack>
-            <ButtonSave type="submit">
-              <MdDone size={25} />
-              <span>SALVAR</span>
-            </ButtonSave>
-          </div>
-        </FormHeader>
+        <FormHeader
+          title={id ? 'Edição de encomendas' : 'Cadastro de encomendas'}
+        />
         <FormBody>
           <InputGroup>
             <InputBlock>
