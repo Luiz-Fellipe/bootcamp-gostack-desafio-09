@@ -27,12 +27,14 @@ export default function FormDelivery({ match }) {
       })
       .then(response => {
         if (response) {
-          const deliverymenOptions = response.data.map(deliveryman => {
-            return {
-              value: deliveryman.id,
-              label: deliveryman.name,
-            };
-          });
+          const deliverymenOptions = response.data.deliverymen.map(
+            deliveryman => {
+              return {
+                value: deliveryman.id,
+                label: deliveryman.name,
+              };
+            }
+          );
 
           if (inputValue) {
             callback(deliverymenOptions);
@@ -83,7 +85,7 @@ export default function FormDelivery({ match }) {
         };
 
         setDeliveryEditData(data);
-
+        console.tron.log(response.data);
         // seta nos campos do react-select o nome do entregador e do destinatário
         await formRef.current.setFieldValue('deliveryman_id', {
           value: response.data.deliveryman.id,
