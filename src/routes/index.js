@@ -29,6 +29,7 @@ export default function Routes() {
         isPrivate
       />
       <Route path="/entregadores" exact component={Deliverymen} isPrivate />
+      {/* <Route path="/entregadores/editar/:id" exact component={Deliverymen} isPrivate /> */}
       <Route path="/destinatarios" exact component={Recipient} isPrivate />
       <Route path="/problemas" exact component={DeliveryProblem} isPrivate />
     </Switch>
