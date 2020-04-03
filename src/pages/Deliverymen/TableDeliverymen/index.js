@@ -33,7 +33,9 @@ export default function TableDeliverymen({ deliverymen, callback, prevPage }) {
           toast.error('Entregador deletado com sucesso !');
         })
         .catch(() => {
-          toast.warn('Erro ao excluir o entregador .');
+          toast.warn(
+            'Erro ao excluir o entregador. Verifique se não existe encomendas vinculadas a ele'
+          );
         });
     }
   }

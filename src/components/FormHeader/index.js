@@ -6,7 +6,7 @@ import colors from '~/styles/colors';
 
 import { ButtonLink, ButtonSubmit } from '~/components/Buttons';
 
-export default function FormHeader({ title }) {
+export default function FormHeader({ title, buttonBackTo }) {
   return (
     <Container>
       <h1>{title}</h1>
@@ -16,7 +16,7 @@ export default function FormHeader({ title }) {
           Icon={MdNavigateBefore}
           textButton="VOLTAR"
           backgroundButton="#cccccc"
-          to="/encomendas"
+          to={buttonBackTo}
         />
         <ButtonSubmit
           Icon={MdDone}
@@ -30,4 +30,5 @@ export default function FormHeader({ title }) {
 
 FormHeader.propTypes = {
   title: PropTypes.string.isRequired,
+  buttonBackTo: PropTypes.string.isRequired,
 };

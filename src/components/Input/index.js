@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useField } from '@unform/core';
 
-import { TInput } from './styles';
+import { TInput, Error } from './styles';
 
 export default function Input({ name, ...rest }) {
   const inputRef = useRef(null);
@@ -17,7 +17,7 @@ export default function Input({ name, ...rest }) {
   return (
     <>
       <TInput ref={inputRef} defaultValue={defaultValue} {...rest} />
-      {error && <span className="error">{error}</span>}
+      {error && <Error className="error">{error}</Error>}
     </>
   );
 }

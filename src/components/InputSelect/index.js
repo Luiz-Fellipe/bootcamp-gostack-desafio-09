@@ -4,6 +4,8 @@ import { useField } from '@unform/core';
 import AsyncSelect from 'react-select/async';
 import colors from '~/styles/colors';
 
+import { Error } from './styles';
+
 export default function Input({ name, ...rest }) {
   const selectRef = useRef(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
@@ -47,7 +49,7 @@ export default function Input({ name, ...rest }) {
         classNamePrefix="react-select"
         {...rest}
       />
-      {error && <span className="error">{error}</span>}
+      {error && <Error className="error">{error}</Error>}
     </>
   );
 }

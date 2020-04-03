@@ -6,18 +6,16 @@ export const Container = styled.div`
   margin: 0 auto;
 `;
 
-export const InputGroup = styled.div`
-  display: grid;
-  gap: 25px;
-  grid-template-columns: 1fr 1fr;
-  margin-bottom: 15px;
-`;
-
 export const InputBlock = styled.div`
+  display: flex;
+  flex-direction: column;
   label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
     color: ${colors.label};
+  }
+  & > label {
+    margin-top: 15px;
   }
 `;

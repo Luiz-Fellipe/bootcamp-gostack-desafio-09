@@ -11,3 +11,10 @@ export const TInput = styled.input`
     border-color: ${colors.purple};
   }
 `;
+
+export const Error = styled.span`
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: ${colors.red};
+`;

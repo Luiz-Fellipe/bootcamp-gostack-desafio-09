@@ -8,8 +8,9 @@ import api from '~/services/api';
 import Input from '~/components/Input';
 import InputSelect from '~/components/InputSelect';
 import FormHeader from '~/components/FormHeader';
+import FormBody from '~/components/FormBody';
 
-import { Container, FormBody, InputGroup, InputBlock } from './styles';
+import { Container, InputGroup, InputBlock } from './styles';
 
 export default function FormDelivery({ match }) {
   const formRef = useRef(null);
@@ -179,6 +180,7 @@ export default function FormDelivery({ match }) {
       >
         <FormHeader
           title={id ? 'Edição de encomendas' : 'Cadastro de encomendas'}
+          buttonBackTo="/encomendas"
         />
         <FormBody>
           <InputGroup>

@@ -77,7 +77,7 @@ export default function Deliverymen() {
         <ButtonLink
           Icon={MdAdd}
           textButton="CADASTRAR"
-          to=""
+          to="entregadores/cadastrar"
           backgroundButton={colors.purple}
         />
       </PageHeader>

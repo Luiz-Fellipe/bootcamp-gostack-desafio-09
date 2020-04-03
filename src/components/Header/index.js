@@ -19,15 +19,9 @@ export default function Header() {
         <nav>
           <img src={logo} alt="logo fastfeet" />
           <NavLink to="/encomendas">ENCOMENDAS</NavLink>
-          <NavLink exact to="/entregadores">
-            ENTREGADORES
-          </NavLink>
-          <NavLink exact to="/destinatarios">
-            DESTINATÁRIOS
-          </NavLink>
-          <NavLink exact to="/problemas">
-            PROBLEMAS
-          </NavLink>
+          <NavLink to="/entregadores">ENTREGADORES</NavLink>
+          <NavLink to="/destinatarios">DESTINATÁRIOS</NavLink>
+          <NavLink to="/problemas">PROBLEMAS</NavLink>
         </nav>
 
         <Profile>
