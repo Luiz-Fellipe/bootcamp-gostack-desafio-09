@@ -21,18 +21,31 @@ const AvatarColorsText = [
   '#CCCC8B',
 ];
 
-export default function AvatarDeliveryman({ name, src }) {
+export default function AvatarDeliveryman({
+  name,
+  size,
+  textSizeRatio,
+  src,
+  hasBorder,
+}) {
   return (
     <Avatar
       name={name}
       color={Avatar.getRandomColor(name, AvatarColorsBackground)}
       round
-      style={{ borderSpacing: 0 }}
+      style={{
+        borderSpacing: 0,
+        width: hasBorder ? size + 4 : size,
+        height: hasBorder ? size + 4 : size,
+        border: hasBorder
+          ? `2px dashed ${Avatar.getRandomColor(name, AvatarColorsText)}`
+          : 'none',
+      }}
       fgColor={Avatar.getRandomColor(name, AvatarColorsText)}
       maxInitials={2}
-      textSizeRatio={0}
+      textSizeRatio={textSizeRatio}
       src={src}
-      size={36}
+      size={size}
     />
   );
 }
@@ -40,8 +53,13 @@ export default function AvatarDeliveryman({ name, src }) {
 AvatarDeliveryman.propTypes = {
   name: PropTypes.string.isRequired,
   src: PropTypes.string,
+  size: PropTypes.number.isRequired,
+  textSizeRatio: PropTypes.number,
+  hasBorder: PropTypes.bool,
 };
 
 AvatarDeliveryman.defaultProps = {
   src: null,
+  textSizeRatio: 0,
+  hasBorder: false,
 };

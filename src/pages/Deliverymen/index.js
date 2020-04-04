@@ -21,6 +21,9 @@ export default function Deliverymen() {
   const [totalPage, setTotalPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
 
+  const NotResults = !loading && !deliverymen.length;
+  const ResultsFound = !loading && deliverymen.length > 0;
+
   async function loadDeliverymen() {
     setLoading(true);
     await api
@@ -83,21 +86,18 @@ export default function Deliverymen() {
         />
       </PageHeader>
 
-      {!loading ? (
-        <>
-          {!deliverymen.length ? (
-            <NotResultsFound text="Nenhuma encomenda foi encontrada." />
-          ) : (
-            <TableDeliverymen
-              callback={loadDeliverymen}
-              prevPage={handlePrevPage}
-              deliverymen={deliverymen}
-            />
-          )}
-        </>
-      ) : (
-        <TableLoading />
+      {loading && <TableLoading />}
+      {NotResults && (
+        <NotResultsFound text="Nenhuma encomenda foi encontrada." />
       )}
+      {ResultsFound && (
+        <TableDeliverymen
+          callback={loadDeliverymen}
+          prevPage={handlePrevPage}
+          deliverymen={deliverymen}
+        />
+      )}
+
       <Pagination
         page={page}
         totalPage={totalPage}

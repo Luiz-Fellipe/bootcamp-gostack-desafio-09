@@ -63,6 +63,7 @@ export default function TableDeliverymen({ deliverymen, callback, prevPage }) {
           <td>#{deliveryman.id}</td>
           <td id="tdEntregador">
             <AvatarDeliveryman
+              size={36}
               name={deliveryman.name}
               src={deliveryman.avatar ? deliveryman.avatar.url : null}
             />
@@ -70,7 +71,7 @@ export default function TableDeliverymen({ deliverymen, callback, prevPage }) {
           <td>{deliveryman.name}</td>
           <td>{deliveryman.email}</td>
 
-          <td className="actions">
+          <td>
             <Popover>
               <PopoverItem>
                 <button

@@ -6,15 +6,19 @@ import { MdInsertPhoto } from 'react-icons/md';
 import colors from '~/styles/colors';
 import api from '~/services/api';
 
-import { Container, NoImage } from './styles';
+import AvatarDeliveryman from '~/components/AvatarDeliveryman';
 
-const AvatarInput = ({ name, ...rest }) => {
+import { Container, NoImage, TextAddFoto } from './styles';
+
+// se a prop DeliverymanName for informada é pq ele esta editando um
+// usuário que não possui um avatar
+const AvatarInput = ({ name, DeliverymanName, ...rest }) => {
   const inputRef = useRef(null);
 
   const { fieldName, registerField, defaultValue } = useField(name);
 
-  const [preview, setPreview] = useState(defaultValue && defaultValue.url);
-  const [idFile, setIdFile] = useState(defaultValue && defaultValue.id);
+  const [preview, setPreview] = useState(defaultValue);
+  const [idFile, setIdFile] = useState(defaultValue);
 
   const handleChange = useCallback(async e => {
     const file = e.target.files[0];
@@ -58,14 +62,22 @@ const AvatarInput = ({ name, ...rest }) => {
   return (
     <Container>
       <label htmlFor="avatar">
-        {preview ? (
-          <img src={preview} alt="Preview" />
-        ) : (
+        {preview && <img src={preview} alt="Preview" />}
+        {DeliverymanName && !preview && (
+          <AvatarDeliveryman
+            size={150}
+            name={DeliverymanName}
+            textSizeRatio={2}
+            hasBorder
+          />
+        )}
+        {!DeliverymanName && !preview && (
           <NoImage>
             <MdInsertPhoto size={50} color={colors.lightGray} />
-            <span>Adicionar foto</span>
+            <TextAddFoto>Adicionar foto</TextAddFoto>
           </NoImage>
         )}
+
         <input
           type="file"
           id="avatar"
@@ -78,8 +90,14 @@ const AvatarInput = ({ name, ...rest }) => {
     </Container>
   );
 };
+
+AvatarInput.defaultProps = {
+  DeliverymanName: '',
+};
+
 AvatarInput.propTypes = {
   name: PropTypes.string.isRequired,
+  DeliverymanName: PropTypes.string,
 };
 
 export default AvatarInput;

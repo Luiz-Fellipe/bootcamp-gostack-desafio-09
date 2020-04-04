@@ -84,6 +84,7 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
           <td>{delivery.recipient.name}</td>
           <td id="tdEntregador">
             <AvatarDeliveryman
+              size={36}
               name={delivery.deliveryman.name}
               src={
                 delivery.deliveryman.avatar

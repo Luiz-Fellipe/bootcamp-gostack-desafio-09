@@ -32,11 +32,11 @@ export const NoImage = styled.div`
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  border: 1px dashed ${colors.lightGray};
+  border: 2px dashed ${colors.lightGray};
   background: none;
-  span {
-    color: ${colors.lightGray};
-    font-size: 16px;
-    font-weight: bold;
-  }
+`;
+export const TextAddFoto = styled.span`
+  color: ${colors.lightGray};
+  font-size: 16px;
+  font-weight: bold;
 `;
