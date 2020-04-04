@@ -59,7 +59,7 @@ export default function FormDelivery({ match }) {
       })
       .then(response => {
         if (response) {
-          const recipientsOptions = response.data.map(recipient => {
+          const recipientsOptions = response.data.recipients.map(recipient => {
             return {
               value: recipient.id,
               label: recipient.name,

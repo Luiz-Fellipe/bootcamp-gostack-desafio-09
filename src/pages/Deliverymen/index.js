@@ -50,7 +50,6 @@ export default function Deliverymen() {
 
   useEffect(() => {
     loadDeliverymen();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchValue]);
 
   function handlePrevPage() {
