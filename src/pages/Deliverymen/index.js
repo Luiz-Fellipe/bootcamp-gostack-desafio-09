@@ -40,13 +40,14 @@ export default function Deliverymen() {
 
         setLoading(false);
       })
-      .catch(err => {
+      .catch(() => {
         toast.error('Erro ao carregar dados dos entregadores');
       });
   }
 
   useEffect(() => {
     loadDeliverymen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchValue]);
 
   function handlePrevPage() {

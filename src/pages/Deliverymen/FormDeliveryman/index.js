@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Form } from '@unform/web';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';

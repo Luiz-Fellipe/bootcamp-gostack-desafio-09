@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 import { useField } from '@unform/core';
 import { MdInsertPhoto } from 'react-icons/md';
 import colors from '~/styles/colors';
@@ -10,7 +11,7 @@ import { Container, NoImage } from './styles';
 const AvatarInput = ({ name, ...rest }) => {
   const inputRef = useRef(null);
 
-  const { fieldName, registerField, defaultValue, error } = useField(name);
+  const { fieldName, registerField, defaultValue } = useField(name);
 
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
   const [idFile, setIdFile] = useState(defaultValue && defaultValue.id);
@@ -76,6 +77,9 @@ const AvatarInput = ({ name, ...rest }) => {
       </label>
     </Container>
   );
+};
+AvatarInput.propTypes = {
+  name: PropTypes.string.isRequired,
 };
 
 export default AvatarInput;
