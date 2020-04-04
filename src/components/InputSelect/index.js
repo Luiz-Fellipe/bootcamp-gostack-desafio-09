@@ -37,6 +37,12 @@ export default function Input({ name, ...rest }) {
         }
         return ref.select.state.value.value;
       },
+      clearValue(ref) {
+        ref.select.select.clearValue();
+      },
+      setValue(ref, value) {
+        ref.select.select.setValue(value);
+      },
     });
   }, [fieldName, registerField, rest.isMulti]);
   return (

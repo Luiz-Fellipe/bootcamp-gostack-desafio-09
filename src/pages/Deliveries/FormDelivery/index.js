@@ -4,6 +4,7 @@ import { Form } from '@unform/web';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import api from '~/services/api';
+import history from '~/services/history';
 
 import Input from '~/components/Input';
 import InputSelect from '~/components/InputSelect';
@@ -99,7 +100,6 @@ export default function FormDelivery({ match }) {
         });
       })
       .catch(err => {
-        console.tron.log(err);
         toast.error('Erro ao carregar dados da encomenda');
       });
   }
@@ -112,7 +112,7 @@ export default function FormDelivery({ match }) {
     loadRecipients();
   }, [id]);
 
-  async function handleSubmit(dataForm) {
+  async function handleSubmit(dataForm, reset) {
     const { recipient_id, deliveryman_id, product } = dataForm;
 
     if (!id) {
@@ -124,6 +124,7 @@ export default function FormDelivery({ match }) {
         })
         .then(() => {
           toast.success('Encomenda cadastrada com sucesso');
+          reset();
         })
         .catch(() => {
           toast.error('Erro ao cadastrar encomenda');
@@ -137,6 +138,7 @@ export default function FormDelivery({ match }) {
         })
         .then(() => {
           toast.success('Encomenda editada com sucesso');
+          history.push('/encomendas');
         })
         .catch(() => {
           toast.error('Erro ao editar encomenda');
@@ -144,7 +146,7 @@ export default function FormDelivery({ match }) {
     }
   }
 
-  async function handleValidation(dataForm) {
+  async function handleValidation(dataForm, { reset }) {
     // Remove all previous errors
     formRef.current.setErrors({});
     const schema = Yup.object().shape({
@@ -158,7 +160,7 @@ export default function FormDelivery({ match }) {
       })
       .then(() => {
         // se passou na validação, faz o cadastro
-        handleSubmit(dataForm);
+        handleSubmit(dataForm, reset);
       })
       .catch(err => {
         const validationErrors = {};
