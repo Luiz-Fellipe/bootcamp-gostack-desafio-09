@@ -9,6 +9,7 @@ import Recipient from '~/pages/Recipient';
 import DeliveryProblem from '~/pages/DeliveryProblem';
 import FormDelivery from '~/pages/Deliveries/FormDelivery';
 import FormDeliveryman from '~/pages/Deliverymen/FormDeliveryman';
+import FormRecipient from '~/pages/Recipient/FormRecipient';
 
 import SignIn from '~/pages/SignIn';
 
@@ -43,6 +44,18 @@ export default function Routes() {
         isPrivate
       />
       <Route path="/destinatarios" exact component={Recipient} isPrivate />
+      <Route
+        path="/destinatarios/cadastrar"
+        exact
+        component={FormRecipient}
+        isPrivate
+      />
+      <Route
+        path="/destinatarios/editar/:id"
+        exact
+        component={FormRecipient}
+        isPrivate
+      />
       <Route path="/problemas" exact component={DeliveryProblem} isPrivate />
     </Switch>
   );

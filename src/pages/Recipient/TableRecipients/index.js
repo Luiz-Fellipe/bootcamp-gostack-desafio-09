@@ -11,7 +11,7 @@ import handleStateName from '~/utils/hanldeStateName';
 import Table from '~/components/Table';
 import Popover from '~/components/Popover';
 
-import { PopoverItem, TableHead, TableBody } from './styles';
+import { PopoverItem } from './styles';
 
 export default function TableRecipients({ recipients, callback, prevPage }) {
   async function handleRecipientDelete(id) {
@@ -45,25 +45,24 @@ export default function TableRecipients({ recipients, callback, prevPage }) {
   }
 
   const THead = () => (
-    <TableHead>
+    <thead>
       <tr>
         <th>ID</th>
         <th>Nome</th>
         <th>Endereço</th>
-        <th className="actions">Ações</th>
+        <th style={{ textAlign: 'center' }}>Ações</th>
       </tr>
-    </TableHead>
+    </thead>
   );
 
   const TBody = () => (
-    <TableBody>
+    <tbody>
       {recipients.map(recipient => (
         <tr key={recipient.id}>
           <td>#{recipient.id}</td>
-
           <td>{recipient.name}</td>
           <td>
-            {recipient.street}, {recipient.number}, {recipient.city} -{' '}
+            {recipient.street}, {recipient.number || 'S/N'}, {recipient.city} -{' '}
             {handleStateName(recipient.uf)}
           </td>
 
@@ -92,7 +91,7 @@ export default function TableRecipients({ recipients, callback, prevPage }) {
           </td>
         </tr>
       ))}
-    </TableBody>
+    </tbody>
   );
 
   return (

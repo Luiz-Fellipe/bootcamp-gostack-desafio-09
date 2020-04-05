@@ -19,21 +19,3 @@ export const PopoverItem = styled.div`
     border: 0.5px solid #eeeeee;
   }
 `;
-
-export const TableHead = styled.thead`
-  .actions {
-    text-align: center;
-  }
-`;
-
-export const TableBody = styled.tbody`
-  tr {
-    td#tdEntregador {
-      display: flex;
-      align-items: center;
-      > span {
-        margin-left: 5px;
-      }
-    }
-  }
-`;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import colors from '~styles/colors';
+import colors from '~/styles/colors';
 
 export const TInput = styled.input`
   width: 100%;
@@ -7,8 +7,14 @@ export const TInput = styled.input`
   border-radius: 4px;
   border: 1px solid ${colors.lightGray};
   padding: 10px;
+  color: ${colors.label};
   &:hover {
     border-color: ${colors.purple};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: none;
   }
 `;
 
