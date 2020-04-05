@@ -129,20 +129,10 @@ export const StatusContainer = styled.div`
         `}
 `;
 
-export const TableHead = styled.thead`
-  .actions {
-    text-align: center;
-  }
-`;
-
-export const TableBody = styled.tbody`
-  tr {
-    td#tdEntregador {
-      display: flex;
-      align-items: center;
-      > span {
-        margin-left: 5px;
-      }
-    }
+export const TdGroup = styled.td`
+  display: flex;
+  align-items: center;
+  > span {
+    margin-left: 5px;
   }
 `;

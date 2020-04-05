@@ -11,7 +11,7 @@ import AvatarDeliveryman from '~/components/AvatarDeliveryman';
 import Table from '~/components/Table';
 import Popover from '~/components/Popover';
 
-import { PopoverItem, TableHead, TableBody } from './styles';
+import { PopoverItem } from './styles';
 
 export default function TableDeliverymen({ deliverymen, callback, prevPage }) {
   async function handleDeliveryDelete(id) {
@@ -45,23 +45,23 @@ export default function TableDeliverymen({ deliverymen, callback, prevPage }) {
   }
 
   const THead = () => (
-    <TableHead>
+    <thead>
       <tr>
         <th>ID</th>
         <th>Foto</th>
         <th>Nome</th>
         <th>Email</th>
-        <th className="actions">Ações</th>
+        <th>Ações</th>
       </tr>
-    </TableHead>
+    </thead>
   );
 
   const TBody = () => (
-    <TableBody>
+    <tbody>
       {deliverymen.map(deliveryman => (
         <tr key={deliveryman.id}>
           <td>#{deliveryman.id}</td>
-          <td id="tdEntregador">
+          <td>
             <AvatarDeliveryman
               size={36}
               name={deliveryman.name}
@@ -96,7 +96,7 @@ export default function TableDeliverymen({ deliverymen, callback, prevPage }) {
           </td>
         </tr>
       ))}
-    </TableBody>
+    </tbody>
   );
 
   return (

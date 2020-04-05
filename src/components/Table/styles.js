@@ -14,6 +14,9 @@ export const TableContent = styled.table`
       th {
         font-size: 16px;
         padding: 0px 20px;
+        &:last-child {
+          text-align: center;
+        }
       }
     }
   }

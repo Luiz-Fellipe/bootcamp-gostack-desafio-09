@@ -50,7 +50,7 @@ export default function TableRecipients({ recipients, callback, prevPage }) {
         <th>ID</th>
         <th>Nome</th>
         <th>Endereço</th>
-        <th style={{ textAlign: 'center' }}>Ações</th>
+        <th>Ações</th>
       </tr>
     </thead>
   );

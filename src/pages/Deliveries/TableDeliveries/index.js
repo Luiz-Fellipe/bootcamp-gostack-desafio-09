@@ -12,7 +12,7 @@ import Table from '~/components/Table';
 import Popover from '~/components/Popover';
 import ModalDelivery from '~/pages/Deliveries/ModalDelivery';
 
-import { StatusContainer, PopoverItem, TableHead, TableBody } from './styles';
+import { StatusContainer, PopoverItem, TdGroup } from './styles';
 
 export default function TableDeliveries({ deliveries, callback, prevPage }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -63,7 +63,7 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
   }
 
   const THead = () => (
-    <TableHead>
+    <thead>
       <tr>
         <th>ID</th>
         <th>Destinatário</th>
@@ -71,18 +71,18 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
         <th>Cidade</th>
         <th>Estado</th>
         <th>Status</th>
-        <th className="actions">Ações</th>
+        <th>Ações</th>
       </tr>
-    </TableHead>
+    </thead>
   );
 
   const TBody = () => (
-    <TableBody>
+    <tbody>
       {deliveries.map(delivery => (
         <tr key={delivery.id}>
           <td>#{delivery.id}</td>
           <td>{delivery.recipient.name}</td>
-          <td id="tdEntregador">
+          <TdGroup>
             <AvatarDeliveryman
               size={36}
               name={delivery.deliveryman.name}
@@ -93,7 +93,7 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
               }
             />
             <span>{delivery.deliveryman.name}</span>
-          </td>
+          </TdGroup>
           <td>{delivery.recipient.city}</td>
           <td>{delivery.recipient.uf}</td>
           <td>
@@ -137,7 +137,7 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
           </td>
         </tr>
       ))}
-    </TableBody>
+    </tbody>
   );
 
   return (
