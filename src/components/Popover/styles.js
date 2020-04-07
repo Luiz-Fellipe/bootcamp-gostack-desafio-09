@@ -14,9 +14,9 @@ export const Badge = styled.button`
 
 export const PopoverContent = styled.div`
   position: absolute;
-  width: 200px;
+  width: ${props => `${props.width}px`};
   z-index: 1;
-  left: calc(50% - 100px);
+  left: ${props => `calc(50% - ${props.width / 2}px)`};
   top: calc(100% + 5px);
   background: ${colors.white};
   box-shadow: 0px 0px 2px #00000026;

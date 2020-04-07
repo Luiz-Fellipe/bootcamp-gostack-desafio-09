@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MdMoreHoriz } from 'react-icons/md';
 import { Container, Badge, PopoverContent } from './styles';
 
-export default function Popover({ children }) {
+export default function Popover({ children, width }) {
   const outside = useRef();
   const [visible, setVisible] = useState(false);
 
@@ -26,11 +26,14 @@ export default function Popover({ children }) {
         <MdMoreHoriz size={25} color="#C6C6C6" />
       </Badge>
 
-      <PopoverContent visible={visible}>{children}</PopoverContent>
+      <PopoverContent visible={visible} width={width}>
+        {children}
+      </PopoverContent>
     </Container>
   );
 }
 
 Popover.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  width: PropTypes.number.isRequired,
 };

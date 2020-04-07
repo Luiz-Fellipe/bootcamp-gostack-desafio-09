@@ -67,7 +67,7 @@ export default function TableRecipients({ recipients, callback, prevPage }) {
           </td>
 
           <td>
-            <Popover>
+            <Popover width={200}>
               <PopoverItem>
                 <button
                   type="button"

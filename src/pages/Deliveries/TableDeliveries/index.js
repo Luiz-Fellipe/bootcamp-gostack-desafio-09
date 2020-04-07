@@ -106,7 +106,7 @@ export default function TableDeliveries({ deliveries, callback, prevPage }) {
             </StatusContainer>
           </td>
           <td className="actions">
-            <Popover>
+            <Popover width={200}>
               <PopoverItem>
                 <button type="button" onClick={() => handleModal(delivery)}>
                   <MdVisibility size={16} color="#8E5BE8" />

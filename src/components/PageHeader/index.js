@@ -10,8 +10,11 @@ export default function PageHeader({ textTitle, children }) {
     </Container>
   );
 }
+PageHeader.defaultProps = {
+  children: null,
+};
 
 PageHeader.propTypes = {
   textTitle: PropTypes.string.isRequired,
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.arrayOf(PropTypes.element),
 };

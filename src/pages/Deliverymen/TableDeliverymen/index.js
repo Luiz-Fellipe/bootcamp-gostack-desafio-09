@@ -72,7 +72,7 @@ export default function TableDeliverymen({ deliverymen, callback, prevPage }) {
           <td>{deliveryman.email}</td>
 
           <td>
-            <Popover>
+            <Popover width={200}>
               <PopoverItem>
                 <button
                   type="button"

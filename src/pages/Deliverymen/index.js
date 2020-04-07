@@ -87,7 +87,7 @@ export default function Deliverymen() {
 
       {loading && <TableLoading />}
       {NotResults && (
-        <NotResultsFound text="Nenhuma encomenda foi encontrada." />
+        <NotResultsFound text="Nenhum entregador foi encontrado." />
       )}
       {ResultsFound && (
         <TableDeliverymen
