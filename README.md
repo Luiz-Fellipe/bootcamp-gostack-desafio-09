@@ -46,11 +46,11 @@ O layout do desafio foi feito seguindo o protótipo disponivel nesse link : [Vis
 
 ### Demo
 
-<img alt="Fastfeet" title="demo1" src=".github/demo-1.png" width="150px" />
-<img alt="Fastfeet" title="demo2" src=".github/demo-2.png" width="150px" />
-<img alt="Fastfeet" title="demo3" src=".github/demo-3.png" width="150px" />
-<img alt="Fastfeet" title="demo4" src=".github/demo-4.png" width="150px" />
-<img alt="Fastfeet" title="demo5" src=".github/demo-5.png" width="150px" />
-<img alt="Fastfeet" title="demo6" src=".github/demo-6.png" width="150px" />
-<img alt="Fastfeet" title="demo7" src=".github/demo-7.png" width="150px" />
-<img alt="Fastfeet" title="demo8" src=".github/demo-8.png" width="150px" />
+<img alt="Fastfeet" title="demo1" src=".github/demo-1.png" width="300px" />
+<img alt="Fastfeet" title="demo2" src=".github/demo-2.png" width="300px" />
+<img alt="Fastfeet" title="demo3" src=".github/demo-3.png" width="300px" />
+<img alt="Fastfeet" title="demo4" src=".github/demo-4.png" width="300px" />
+<img alt="Fastfeet" title="demo5" src=".github/demo-5.png" width="300px" />
+<img alt="Fastfeet" title="demo6" src=".github/demo-6.png" width="300px" />
+<img alt="Fastfeet" title="demo7" src=".github/demo-7.png" width="300px" />
+<img alt="Fastfeet" title="demo8" src=".github/demo-8.png" width="300px" />
