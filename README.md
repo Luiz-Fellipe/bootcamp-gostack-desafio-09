@@ -1,68 +1,56 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+  <img alt="Fastfeet" title="Fastfeet" src=".github/logo.png" width="300px" />
+</h1>
 
-## Available Scripts
+<h3 align="center">
+  Desafio 9: FastFeet, front-end web
+</h3>
 
-In the project directory, you can run:
+<h3 align="center">
+  :warning: Etapa 3/4 do Desafio Final :warning:
+</h3>
 
-### `yarn start`
+<p>Esse desafio faz parte do Desafio Final, que é uma aplicação completa (Back-end, Front-end e Mobile) que é avaliada para emissão do Certificado do Bootcamp GoStack, por isso é fundamental que ele seja feito com muito empenho!</p>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<blockquote align="center">“Mude você e todo o resto mudará naturalmente”!</blockquote>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<p align="center">
+  <a href="#rocket-sobre-o-desafio">Sobre o desafio</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#informações-importantes">Informações Importantes</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#demo">Demo</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+</p>
 
-### `yarn test`
+## 🚀 Sobre o desafio
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Durante esse desafio construi o front-end da aplicação FastFeet que no qual criei o back-end durante os desafios dos módulos 02 e 03 de Node.js.
 
-### `yarn build`
+A versão web do projeto FastFeet representa a visão da distribuidora, ou seja, todas funcionalidades presentes na versão web são para administradores. As funcionalidades para o entregador serão dispostas no aplicativo mobile.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Informações importantes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Antes de cancelar encomendas ou deletar qualquer registro do banco criei uma verificação adicinal usando a função `confirm` do JavaScript;
+2. Para formatação de datas utilizei sempre a biblioteca `date-fns`;
+3. No cadastro/edição de encomendas foi preciso buscar o entregador e o destinatário pelo nome. Utilizei o método `async` da biblioteca [React Select](https://react-select.com/home#async). As encomendas são buscadas da API assim que a página carregaa e não possuem filtro.
 
-### `yarn eject`
+## Opcionais
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Adicionei paginação no front-end e back-end para todas listagens;
+2. Utilizei máscaras para o input de CEP;
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 🎨 Layout
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+O layout do desafio foi feito seguindo o protótipo disponivel nesse link : [Visualizar](https://xd.adobe.com/view/62e829fc-4f10-4ac8-70d2-d39b429d43ee-14d9/grid/)
 
-## Learn More
+### Demo
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<img alt="Fastfeet" title="demo1" src=".github/demo-1.png" width="150px" />
+<img alt="Fastfeet" title="demo2" src=".github/demo-2.png" width="150px" />
+<img alt="Fastfeet" title="demo3" src=".github/demo-3.png" width="150px" />
+<img alt="Fastfeet" title="demo4" src=".github/demo-4.png" width="150px" />
+<img alt="Fastfeet" title="demo5" src=".github/demo-5.png" width="150px" />
+<img alt="Fastfeet" title="demo6" src=".github/demo-6.png" width="150px" />
+<img alt="Fastfeet" title="demo7" src=".github/demo-7.png" width="150px" />
+<img alt="Fastfeet" title="demo8" src=".github/demo-8.png" width="150px" />
